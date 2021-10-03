@@ -1,0 +1,26 @@
+syntax = "proto3";
+package service;
+import "google/protobuf/wrappers.proto";
+
+service creatingServer{
+    rpc add_new_fn(function) returns(google.protobuf.StringValue);
+    rpc add_fns(function) returns(google.protobuf.StringValue);
+    rpc delete_fn(google.protobuf.StringValue) returns(google.protobuf.StringValue);
+    rpc show_fn (criteria) returns (function);
+    rpc show_all_fns (google.protobuf.StringValue) returns ( stream google.protobuf.StringValue);
+    rpc show_all_with_criteria (google.protobuf.StringValue) returns (stream google.protobuf.StringValue);
+}
+
+message criteria {
+    string functionName = 1;
+    string version = 2;
+}
+
+message function {
+    string functionName = 1;
+    int32 version = 2;
+    string fullName = 3;
+    string email = 4;
+    string address = 5;
+    string language = 6;
+}
