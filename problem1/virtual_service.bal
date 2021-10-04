@@ -15,27 +15,27 @@ service virtual_Service on ep0 {
 
     @http:ResourceConfig {
         methods:["POST"],
-        path:"/learner/add",
+        path:"/Learner/add",
         body:"body"
     }
-    resource function resource_post_learner_add (http:Caller caller, http:Request req,  objectLearner  body) returns error? {
+    resource function resource_post_Learner_add (http:Caller caller, http:Request req,  objectLearner  body) returns error? {
 
     }
 
     @http:ResourceConfig {
         methods:["POST"],
-        path:"/learner/update",
+        path:"/Learner/update",
         body:"body"
     }
-    resource function resource_post_learner_update (http:Caller caller, http:Request req,  objectLearner  body) returns error? {
+    resource function resource_post_Learner_update (http:Caller caller, http:Request req,  objectLearner  body) returns error? {
 
     }
 
     @http:ResourceConfig {
         methods:["GET"],
-        path:"/studyingMaterials/{learner}"
+        path:"/Studyingmaterials/{Learner}"
     }
-    resource function resource_get_studyingMaterials_learner (http:Caller caller, http:Request req,  string learner) returns error? {
+    resource function resource_get_studyingMaterials_Learner (http:Caller caller, http:Request req,  string learner) returns error? {
 
     }
 
