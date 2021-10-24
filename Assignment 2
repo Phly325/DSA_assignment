@@ -2,6 +2,11 @@ import ballerina/io;
 import ballerina/kafka;
 import ballerina/lang. 'string as strings;
 import ballerina/log;
+import ballerina/http;
+import ballerina/log;
+
+http:Client clientEP = new("http://localhost:9092", config = { httpVersion: "2.0" });
+http:Client clientEP = new("http://localhost:9093", config = { httpVersion: "2.0" });
 
 
 kafka:ObjectConfig objectConfigs = {
@@ -31,3 +36,26 @@ public function main() {
     }
 }
 
+public function main() {
+
+    http:Request serviceReq = new;
+    http:HttpFuture httpFuture = checkpanic clientEP->submit("GET", "/sup/saySup", serviceReq);
+    
+    http:Response response = checkpanic clientEP->getResponse(httpFuture);
+    json responsePayload = checkpanic response.getJsonPayload();
+    log:printInfo("Response : " + responsePayload.toString());
+
+   
+    boolean hasAcknowledge = clientEP->hasPromise(httpFuture);
+
+    while (hasPromise) {
+        http:PushAcknowledge pushAcknowledge = checkpanic clientEP->getNextAcknowledge(httpFuture);
+        log:printInfo("Received an acknowledgement for " + pushAcknowledge.path);
+
+        http:Response acknowledgeResponse = checkpanic clientEP->getAcknowledgeResponse(pushPromise);
+        json acknowledgePayload = checkpanic acknowledgeResponse.getJsonPayload();
+        log:printInfo("Acknowledgement resource : " + acknowledgePayload.toString());
+
+        hasAcknowledge = clientEP->hasAcknowledge(httpFuture);
+    }
+}
