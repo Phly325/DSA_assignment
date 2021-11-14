@@ -1,0 +1,11 @@
+[package]
+distribution = "slbeta3"
+
+[build-options]
+observabilityIncluded = true
+
+[[platform.java11.dependency]]
+artifactId = "mysql-connector-java"
+version = "8.0.11"
+path = "C:/Users/marth/Desktop/course outline/jar_files/mysql-connector-java-8.0.11.jar"
+groupId = "mysql"
